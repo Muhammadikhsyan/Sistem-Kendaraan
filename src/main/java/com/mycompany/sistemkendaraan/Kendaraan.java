@@ -1,13 +1,20 @@
 package com.mycompany.sistemkendaraan;
 
-public abstract class Kendaraan {
+import java.io.Serializable;
+
+public abstract class Kendaraan implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String platNomor;
     private String merk;
     private int tahun;
     
     public static int totalKendaraan = 0;
 
-    public Kendaraan(String platNomor, String merk, int tahun) {
+    public Kendaraan(String platNomor, String merk, int tahun) throws Exception {
+        if (tahun < 1900) {
+            throw new Exception("Tahun produksi tidak valid (terlalu tua atau negatif).");
+        }
         this.platNomor = platNomor;
         this.merk = merk;
         this.tahun = tahun;
@@ -45,4 +52,5 @@ public abstract class Kendaraan {
     }
 
     public abstract void caraServis();
+    public abstract void hitungBiayaPajak();
 }
